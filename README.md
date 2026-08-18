@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ReelMind AI
 
 **Turn scrolling into learning.**
@@ -203,3 +204,7 @@ Notes:
 ## License
 
 Built as a hackathon MVP. Sample Reels are fictional and anonymized.
+=======
+# ReelMindAI
+ReelMindAI
+>>>>>>> 58b4b4f990433ca9ceb8962b9852ee3196f0ad34
