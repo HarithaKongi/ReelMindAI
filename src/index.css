@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #07080d;
+  --color-panel: #10121a;
+  --color-accent: #7c8cff;
+  --color-accent-2: #c084fc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(124, 140, 255, 0.16), transparent 50%),
+    radial-gradient(900px 420px at 100% 0%, rgba(192, 132, 252, 0.1), transparent 46%),
+    #07080d;
+  color: #e8eaf2;
+  font-family: var(--font-sans);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.section-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8b90a7;
+}
+
+.glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(18, 20, 32, 0.86), rgba(12, 14, 22, 0.78));
+  border-radius: 1.15rem;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+  animation: rise 0.55s ease both;
+}
+
+.analyze-btn {
+  background: linear-gradient(135deg, #6d7cff 0%, #8b5cf6 52%, #c084fc 100%);
+  box-shadow: 0 10px 30px rgba(124, 140, 255, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.analyze-btn.pulse:not(:disabled) {
+  animation: soft-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes soft-pulse {
+  0% { transform: translateY(0); box-shadow: 0 10px 30px rgba(124,140,255,0.18); }
+  50% { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(124,140,255,0.26); }
+  100% { transform: translateY(0); box-shadow: 0 10px 30px rgba(124,140,255,0.18); }
+}
+
+.analyze-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 16px 36px rgba(139, 92, 246, 0.38);
+}
+
+.analyze-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.graph-edge {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+  animation: draw-line 0.9s ease forwards;
+}
+
+.graph-core {
+  transform-origin: center;
+  animation: core-pulse 2.8s ease-in-out infinite;
+}
+
+.graph-node {
+  opacity: 0;
+  animation: node-in 0.5s ease forwards;
+}
+
+/* small AI animation for analyze panel */
+.ai-animation svg { display: block }
+.ai-animation .graph-core { transform-origin: 24px 24px; animation: core-pulse 2.6s ease-in-out infinite }
+.ai-animation.playing .graph-node { animation-delay: 0.2s }
+.ai-animation.playing .graph-node circle { animation: node-bounce 1.8s infinite ease-in-out }
+
+@keyframes node-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1 }
+  50% { transform: translateY(-6px); opacity: 0.85 }
+}
+
+/* comparison badges */
+.keyword-badge {
+  color: #fb7185; /* rose-400 */
+  border: 1px solid rgba(251,113,133,0.12);
+  background: rgba(251,113,133,0.04);
+}
+
+.latent-badge {
+  color: #34d399; /* emerald */
+  border: 1px solid rgba(16,185,129,0.12);
+  background: rgba(16,185,129,0.04);
+}
+
+.keyword-badge, .latent-badge {
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.keyword-badge:hover, .latent-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes node-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes core-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(124, 140, 255, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.55));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .glass-card,
+  .graph-edge,
+  .graph-core,
+  .graph-node,
+  .analyze-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .graph-edge {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+
+  .graph-node {
+    opacity: 1;
+  }
+}
